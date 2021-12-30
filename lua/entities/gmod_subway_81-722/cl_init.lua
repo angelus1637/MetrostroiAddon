@@ -1156,11 +1156,11 @@ ENT.ButtonMap["Vityaz"] = {
 }
 
 ENT.ButtonMap["Sarmat"] = {
-    pos = Vector(470.85,41.65,-6.2),
-    ang = Angle(0.2,-64,67),
+    pos = Vector(470.892,41.545,-6.23),
+    ang = Angle(0.2,-64.12,67),
     width = 1024,
     height = 640,
-    scale = 0.02*0.567,
+    scale = 0.01112,
     sensor = true,
     system = "SarmatUPO",
     hideseat=0.2,
