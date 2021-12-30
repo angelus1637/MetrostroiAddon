@@ -698,6 +698,7 @@ Metrostroi.AddSarmatUPOAnnouncer("UPO Artur",{
     spec_attention_politeness = {"subway_announcers/sarmat_upo/crossline_artur/spec_attention_politeness.mp3",5.614417},
 },{
     { --МАРШРУТ
+        Name = "Кировская",
         LED = {3,4,5,5,5,5,3,2},
         {
             909,"Международная","Mezhdunarodnaya",
