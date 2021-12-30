@@ -735,7 +735,7 @@ else
         end
         cam.Start2D()
             if self.Train:GetNW2Int("MFDUState",0) ~= -1 then
-                surface.SetDrawColor(0,0,0)
+                surface.SetDrawColor(20,15,20)
                 surface.DrawRect(0,0,800,600)
                 self.PrepareLoad = true
             elseif self.PrepareLoad then
@@ -836,9 +836,10 @@ else
                 surface.SetDrawColor(255,255,255)
                 surface.DrawTexturedRectRotated(238,122,296,64,0)
 
-                draw.SimpleText("Version 2.13.1215. Copyright (c) 2011 American Megatrends Inc.","Metrostroi_Calibri26",80, 196,Color(123,123,123),TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
-                draw.SimpleText("Kontron version NTC1R111, 01/31/2012 10:47:49","Metrostroi_Calibri26",80, 216,Color(123,123,123),TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
-                draw.SimpleText("Press <Del> or <F2> to enter Setup. <F7> for Boot menu","Metrostroi_Calibri26",80, 236,Color(123,123,123),TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
+                draw.SimpleText("Version 2.13.1215. Copyright (C) 2011 American Megatrends, Inc.","Metrostroi_Unifont16",80, 196,Color(250,250,250),TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
+                draw.SimpleText("Kontron Version NTC1R111. 01/31/2012 10:47:49","Metrostroi_Unifont16",80, 216,Color(250,250,250),TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
+                draw.SimpleText("Press <DEL> or <F2> to enter Setup. <F7> for Boot menu","Metrostroi_Unifont16",80, 236,Color(250,250,250),TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
+                draw.SimpleText("A2","Metrostroi_Unifont16",700,540,Color(250,250,250),TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
         elseif state == -3 and Train:GetPackedBool("MFDUWin95Egg") then
                 render.SetScissorRect(2, 0, 800, 600, true)
                 surface.SetTexture(win95_splash)
