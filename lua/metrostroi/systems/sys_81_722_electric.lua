@@ -190,8 +190,9 @@ function TRAIN_SYSTEM:Think(dT)
         Panel.ARSPower = Panel.BARSPower*(1-Train.BUKP.Back)*Train.ARS.Value
         Panel.ALSPower = BO*(1-Train.BUKP.Back)*Train.ALS.Value
 
-        Panel.UPOPower = BO*S["RV"]*Train.R_UPO.Value
-        Train:WriteTrainWire(15,BO*(Train.UPO.LineOut*Train.SarmatUPO.UPOActive+Train.SarmatUPO.LineOut))
+        Panel.UPOPower = BO*S["RV"]*Train.SarmatUPO.UPOActive
+        Train:WriteTrainWire(15,BO*(Train.SarmatUPO.LineOut + Train.UPO.LineOut))
+        -- Train:WriteTrainWire(15,BO*(Train.UPO.LineOut*(Train.SarmatUPO.UPOActive+Train.SarmatUPO.LineOut)))
         --print(W[15],Train.UPO.LineOut*Train.SarmatUPO.UPOActive,Train.SarmatUPO.LineOut)
 
         self.Emer = S["RU"]
@@ -235,12 +236,23 @@ function TRAIN_SYSTEM:Think(dT)
                 Async:TriggerInput("TargetTorque",0)
             end
         end
-
-        self.PSN = HV*(1-BUKV.DisablePSN)
+        
+        -- БПН-118 выключается при:
+            -- - отсутствии или уменьшении напряжения контактной сети ниже 530 В и
+            -- автоматически включается при превышении контрольного уровня 550 В.
+            -- - повышении напряжения контактной сети выше 995 В и автоматически
+            -- включается при напряжении 975 В.
+        if self.Aux750V > 550 and self.Aux750V < 976 then
+            self.PSN = 1
+        elseif self.Aux750V < 530 or self.Aux750V > 995 then
+            self.PSN = 0
+        end
+        self.PSN = self.PSN*(1-BUKV.DisablePSN)
+        
         self.LightsHV = min(1,self.PSN+self.LightsHV)*BUKV.EnableLights
         if self.PSN == 0 then
             if not self.PassLightsTimer then self.PassLightsTimer = CurTime() end
-            if self.PassLightsTimer and CurTime()-self.PassLightsTimer > 20 then self.LightsHV = 0 end
+            if self.PassLightsTimer and CurTime()-self.PassLightsTimer > 30 then self.LightsHV = 0 end
         elseif self.PassLightsTimer then
             self.PassLightsTimer = nil
         end
